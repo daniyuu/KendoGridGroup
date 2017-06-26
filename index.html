@@ -23,6 +23,7 @@
         var dataSource = new kendo.data.DataSource({
           data: [
             {
+              id: 1,
               AccountName: 'AccountName1',
               AccountNo: 'AccountNo1',
               MethodCode: 'K1',
@@ -35,6 +36,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 2,
               AccountName: 'AccountName2',
               AccountNo: 'AccountNo2',
               MethodCode: 'K1',
@@ -47,6 +49,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 3,
               AccountName: 'AccountName3',
               AccountNo: 'AccountNo3',
               MethodCode: 'K2',
@@ -59,6 +62,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 4,
               AccountName: 'AccountName4',
               AccountNo: 'AccountNo4',
               MethodCode: 'K2',
@@ -71,6 +75,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 5,
               AccountName: 'AccountName5',
               AccountNo: 'AccountNo5',
               MethodCode: 'K2',
@@ -83,6 +88,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 6,
               AccountName: 'AccountName6',
               AccountNo: 'AccountNo6',
               MethodCode: 'E1',
@@ -95,6 +101,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 7,
               AccountName: 'AccountName7',
               AccountNo: 'AccountNo7',
               MethodCode: 'E1',
@@ -107,6 +114,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 8,
               AccountName: 'AccountName8',
               AccountNo: 'AccountNo8',
               MethodCode: 'E1',
@@ -119,6 +127,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 9,
               AccountName: 'AccountName9',
               AccountNo: 'AccountNo9',
               MethodCode: 'E1',
@@ -131,6 +140,7 @@
               MktImpactUSD: 232
             },
             {
+              id: 10,
               AccountName: 'AccountName10',
               AccountNo: 'AccountNo10',
               MethodCode: 'E3',
@@ -157,8 +167,8 @@
         var columnDefinitions = [
           {
             field: "SelectCheckBox",
-            template: "<input type='checkbox' data-bind='checked:SelectCheckBox'/>",
-            headerTemplate: "<input type='checkbox' class='checkBox'/>"
+            template: "<input type='checkbox' class='checkBox'/>",
+            headerTemplate: "<input type='checkbox'/>"
           },
           {
             field: "AccountName",
@@ -207,7 +217,9 @@
           editable: "inline"
         }).data("kendoGrid");
 
-        grid.table.on("click", ".checkbox", selectRow);
+        $('.checkBox').bind('click', selectRow);
+
+
         $("#showSelection").bind("click", function () {
           var checked = [];
           for (var i in checkedIds) {
