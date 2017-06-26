@@ -219,23 +219,6 @@
         }).data("kendoGrid");
 
 
-        $('.checkBox').bind('click', selectRow);
-
-        $('.groupCheckBox').bind('click', selectGroupRows);
-
-        $('.allCheckBox').bind('click', selectAllRows);
-
-        $("#showSelection").bind("click", function () {
-          var checked = [];
-          for (var i in checkedIds) {
-            if (checkedIds[i]) {
-              checked.push(i);
-            }
-          }
-
-          alert(checked);
-        });
-
       });
 
       function selectRow() {
@@ -332,10 +315,27 @@
       }
 
       function checkAllCheckBoxStatus() {
-        // TODO: Need better solution  
+        // TODO: Need better solution
       }
 
       function onDataBound(e) {
+        $('.checkBox').bind('click', selectRow);
+
+        $('.groupCheckBox').bind('click', selectGroupRows);
+
+        $('.allCheckBox').bind('click', selectAllRows);
+
+        $("#showSelection").bind("click", function () {
+          var checked = [];
+          for (var i in checkedIds) {
+            if (checkedIds[i]) {
+              checked.push(i);
+            }
+          }
+
+          alert(checked);
+        });
+
         var view = this.dataSource.view();
         for (var i = 0; i < view.length; i++) {
           if (checkedIds[view[i].id]) {
