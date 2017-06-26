@@ -18,52 +18,61 @@
     <div id="grid"></div>
     <script>
       $(document).ready(function () {
+
         $("#grid").kendoGrid({
           dataSource: {
             data: [
-              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: "123.3", UnitsOnOrder: 2 },
-              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: "123.3", UnitsOnOrder: 2 },
-              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: "123.3", UnitsOnOrder: 2 },
+              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: 1, UnitsOnOrder: 2 },
+              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: 2, UnitsOnOrder: 2 },
+              { UnitsInStock: 1, ProductName: 'ProductName1', UnitPrice: 3, UnitsOnOrder: 2 },
+              { UnitsInStock: 2, ProductName: 'ProductName1', UnitPrice: 4, UnitsOnOrder: 2 },
+              { UnitsInStock: 2, ProductName: 'ProductName1', UnitPrice: 5, UnitsOnOrder: 2 },
+              { UnitsInStock: 3, ProductName: 'ProductName1', UnitPrice: 6, UnitsOnOrder: 2 },
             ],
             pageSize: 7,
             group: {
               field: "UnitsInStock", aggregates: [
                 { field: "ProductName", aggregate: "count" },
                 { field: "UnitPrice", aggregate: "sum" },
-                { field: "UnitsOnOrder", aggregate: "average" },
+                { field: "UnitsOnOrder", aggregate: "sum" },
                 { field: "UnitsInStock", aggregate: "count" }
               ]
             }
           },
           sortable: true,
           scrollable: false,
-          persistSelection: true,
           pageable: true,
           columns: [
-            { selectable: true },
             {
               field: "ProductName",
               title: "Product Name",
-              aggregates: ["count"],
             },
             {
               field: "UnitPrice",
               title: "Unit Price",
-              aggregates: ["sum"],
             },
             {
               field: "UnitsOnOrder",
               title: "Units On Order",
-              aggregates: ["average"],
             },
             {
               field: "UnitsInStock",
               title: "Units In Stock",
               aggregates: ["min", "max", "count"],
-              groupHeaderTemplate: "test"
+              groupHeaderTemplate: "<button class='selectItemsInThisGroup'>Select</button> <p>SumPrice: #= aggregates.UnitPrice.sum  # numOfOrders: #= aggregates.UnitsOnOrder.sum #</p>"
             }
-          ]
+          ],
+          dataBound: function () {
+            $(".selectItemsInThisGroup").on("click", function (e) {
+              var grid = $("#grid").data("kendoGrid");
+              var currentGroupRow = $(this).closest(".k-grouping-row");
+              grid.select(currentGroupRow.nextUntil(".k-grouping-row", ":not('.k-group-footer')"));
+
+            })
+          }
         });
+
+
       });
     </script>
 </div>
