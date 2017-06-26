@@ -242,16 +242,28 @@
           dataItem = grid.dataItem(row);
 
 
+        var currentGroupRow = row.prevUntil("tr.k-grouping-row").last().prev();
+
+        if (currentGroupRow.length == 0) {
+          currentGroupRow = row.prev();
+        }
+
+        var $groupCheckbox = $(currentGroupRow.find(".groupCheckBox"));
+
         checkedIds[dataItem.id] = checked;
         if (checked) {
           //-select the row
           row.addClass("k-state-selected");
+
+          if (checkGroupCheckBoxStatus(currentGroupRow)) {
+            $groupCheckbox.prop('checked', checked);
+          }
+
         } else {
           //-remove selection
           row.removeClass("k-state-selected");
 
-          var currentGroupRow = $(this).parents("tr").siblings(".k-grouping-row");
-          var $groupCheckbox = $(currentGroupRow.find(".groupCheckBox"));
+
           $groupCheckbox.prop('checked', checked);
         }
       }
@@ -278,6 +290,18 @@
       }
 
       var checkedIds = {};
+
+      function checkGroupCheckBoxStatus($currentGroupRow) {
+        nextSiblings = $currentGroupRow.nextUntil(".k-grouping-row");
+        for (var j = 0; j < nextSiblings.length; ++j) {
+          var $checkBox = $($(nextSiblings[j]).closest("tr")).find('.checkBox');
+          if (!$checkBox.is(":checked")) {
+            return false
+          }
+        }
+
+        return true;
+      }
 
       function onDataBound(e) {
         var view = this.dataSource.view();
