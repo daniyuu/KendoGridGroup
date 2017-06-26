@@ -241,6 +241,7 @@
           grid = $("#grid").data("kendoGrid"),
           dataItem = grid.dataItem(row);
 
+
         checkedIds[dataItem.id] = checked;
         if (checked) {
           //-select the row
@@ -248,6 +249,10 @@
         } else {
           //-remove selection
           row.removeClass("k-state-selected");
+
+          var currentGroupRow = $(this).parents("tr").siblings(".k-grouping-row");
+          var $groupCheckbox = $(currentGroupRow.find(".groupCheckBox"));
+          $groupCheckbox.prop('checked', checked);
         }
       }
 
