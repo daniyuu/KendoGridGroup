@@ -168,7 +168,7 @@
           {
             field: "SelectCheckBox",
             template: "<input type='checkbox' class='checkBox'/>",
-            headerTemplate: "<input type='checkbox'/>"
+            headerTemplate: "<input type='checkbox' class='allCheckBox'/>"
           },
           {
             field: "AccountName",
@@ -182,7 +182,7 @@
             field: "MethodCode",
             title: "Method Code",
             aggregates: ["count"],
-            groupHeaderTemplate: "<button class='selectItemsInThisGroup'>Select</button> <p>SumPrice: #= aggregates.Score.sum  # numOfAccount: #= aggregates.AccountName.count #</p>"
+            groupHeaderTemplate: "<input type='checkbox' class='groupCheckBox'/> <p>SumPrice: #= aggregates.Score.sum  # numOfAccount: #= aggregates.AccountName.count #</p>"
           },
           {
             field: "Category",
@@ -217,8 +217,10 @@
           editable: "inline"
         }).data("kendoGrid");
 
+
         $('.checkBox').bind('click', selectRow);
 
+        $('.groupCheckBox').bind('click', selectGroupRow);
 
         $("#showSelection").bind("click", function () {
           var checked = [];
@@ -246,6 +248,27 @@
         } else {
           //-remove selection
           row.removeClass("k-state-selected");
+        }
+      }
+
+      function selectGroupRow() {
+        var checked = this.checked;
+        var grid = $("#grid").data("kendoGrid");
+        var currentGroupRow = $(this).closest(".k-grouping-row");
+        var groupRows = currentGroupRow.nextUntil(".k-grouping-row", ":not('.k-group-footer')");
+        for (var i = 0; i < groupRows.length; ++i) {
+          var row = $(groupRows[i].closest("tr"));
+          var rowCheckBox = $(row.find(".checkBox"));
+          dataItem = grid.dataItem(row);
+          checkedIds[dataItem.id] = checked;
+          rowCheckBox.prop('checked', checked);
+          if (checked) {
+            //-select the row
+            row.addClass("k-state-selected");
+          } else {
+            //-remove selection
+            row.removeClass("k-state-selected");
+          }
         }
       }
 
