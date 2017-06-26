@@ -168,7 +168,8 @@
           {
             field: "SelectCheckBox",
             template: "<input type='checkbox' class='checkBox'/>",
-            headerTemplate: "<input type='checkbox' class='allCheckBox'/>"
+            headerTemplate: "<input type='checkbox' class='allCheckBox'/>",
+            sortable: false
           },
           {
             field: "AccountName",
@@ -220,7 +221,9 @@
 
         $('.checkBox').bind('click', selectRow);
 
-        $('.groupCheckBox').bind('click', selectGroupRow);
+        $('.groupCheckBox').bind('click', selectGroupRows);
+
+        $('.allCheckBox').bind('click', selectAllRows);
 
         $("#showSelection").bind("click", function () {
           var checked = [];
@@ -249,6 +252,7 @@
         }
 
         var $groupCheckbox = $(currentGroupRow.find(".groupCheckBox"));
+        var $allCheckbox = $(".allCheckBox");
 
         checkedIds[dataItem.id] = checked;
         if (checked) {
@@ -262,13 +266,12 @@
         } else {
           //-remove selection
           row.removeClass("k-state-selected");
-
-
           $groupCheckbox.prop('checked', checked);
+          $allCheckbox.prop('checked', checked);
         }
       }
 
-      function selectGroupRow() {
+      function selectGroupRows() {
         var checked = this.checked;
         var grid = $("#grid").data("kendoGrid");
         var currentGroupRow = $(this).closest(".k-grouping-row");
@@ -289,6 +292,31 @@
         }
       }
 
+      function selectAllRows() {
+        var checked = this.checked;
+        var grid = $("#grid").data("kendoGrid");
+        var allItems = $("tbody").children();
+        for (var i = 0; i < allItems.length; ++i) {
+          var row = $(allItems[i].closest("tr"));
+          var rowCheckBox;
+          if (row[0].className == "k-grouping-row") {
+            rowCheckBox = $(row.find(".groupCheckBox"));
+          } else {
+            rowCheckBox = $(row.find(".checkBox"));
+            dataItem = grid.dataItem(row);
+            checkedIds[dataItem.id] = checked;
+            if (checked) {
+              //-select the row
+              row.addClass("k-state-selected");
+            } else {
+              //-remove selection
+              row.removeClass("k-state-selected");
+            }
+          }
+          rowCheckBox.prop('checked', checked);
+        }
+      }
+
       var checkedIds = {};
 
       function checkGroupCheckBoxStatus($currentGroupRow) {
@@ -301,6 +329,10 @@
         }
 
         return true;
+      }
+
+      function checkAllCheckBoxStatus() {
+        // TODO: Need better solution  
       }
 
       function onDataBound(e) {
