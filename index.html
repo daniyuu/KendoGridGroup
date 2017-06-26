@@ -15,197 +15,242 @@
     <script src="http://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
 </head>
 <div id="example">
+    <div id="showSelection">Show selected IDs</div>
     <div id="grid"></div>
     <script>
       $(document).ready(function () {
 
-        $("#grid").kendoGrid({
-          dataSource: {
-            data: [
-              {
-                AccountName: 'AccountName1',
-                AccountNo: 'AccountNo1',
-                MethodCode: 'K1',
-                Category: 'Keywords',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 1,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName2',
-                AccountNo: 'AccountNo2',
-                MethodCode: 'K1',
-                Category: 'Keywords',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 2,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName3',
-                AccountNo: 'AccountNo3',
-                MethodCode: 'K2',
-                Category: 'Keywords',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 3,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName4',
-                AccountNo: 'AccountNo4',
-                MethodCode: 'K2',
-                Category: 'Keywords',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 4,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName5',
-                AccountNo: 'AccountNo5',
-                MethodCode: 'K2',
-                Category: 'Keywords',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 5,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName6',
-                AccountNo: 'AccountNo6',
-                MethodCode: 'E1',
-                Category: 'Extension',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 6,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName7',
-                AccountNo: 'AccountNo7',
-                MethodCode: 'E1',
-                Category: 'Extension',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 7,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName8',
-                AccountNo: 'AccountNo8',
-                MethodCode: 'E1',
-                Category: 'Extension',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 8,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName9',
-                AccountNo: 'AccountNo9',
-                MethodCode: 'E1',
-                Category: 'Extension',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 9,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-              {
-                AccountName: 'AccountName10',
-                AccountNo: 'AccountNo10',
-                MethodCode: 'E3',
-                Category: 'Extension',
-                TacticTitle: "TacticTitleXXXX",
-                Score: 10,
-                SpendUSD: 1,
-                Impr: 33.3,
-                Clicks: 3000,
-                MktImpactUSD: 232
-              },
-            ],
-            pageSize: 7,
-            group: {
-              field: "MethodCode", aggregates: [
-                { field: "AccountName", aggregate: "count" },
-                { field: "AccountNo", aggregate: "count" },
-                { field: "MethodCode", aggregate: "count" },
-                { field: "Category", aggregate: "count" },
-                { field: "Score", aggregate: "sum" }
-              ]
-            }
+        var dataSource = new kendo.data.DataSource({
+          data: [
+            {
+              AccountName: 'AccountName1',
+              AccountNo: 'AccountNo1',
+              MethodCode: 'K1',
+              Category: 'Keywords',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 1,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName2',
+              AccountNo: 'AccountNo2',
+              MethodCode: 'K1',
+              Category: 'Keywords',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 2,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName3',
+              AccountNo: 'AccountNo3',
+              MethodCode: 'K2',
+              Category: 'Keywords',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 3,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName4',
+              AccountNo: 'AccountNo4',
+              MethodCode: 'K2',
+              Category: 'Keywords',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 4,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName5',
+              AccountNo: 'AccountNo5',
+              MethodCode: 'K2',
+              Category: 'Keywords',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 5,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName6',
+              AccountNo: 'AccountNo6',
+              MethodCode: 'E1',
+              Category: 'Extension',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 6,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName7',
+              AccountNo: 'AccountNo7',
+              MethodCode: 'E1',
+              Category: 'Extension',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 7,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName8',
+              AccountNo: 'AccountNo8',
+              MethodCode: 'E1',
+              Category: 'Extension',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 8,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName9',
+              AccountNo: 'AccountNo9',
+              MethodCode: 'E1',
+              Category: 'Extension',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 9,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+            {
+              AccountName: 'AccountName10',
+              AccountNo: 'AccountNo10',
+              MethodCode: 'E3',
+              Category: 'Extension',
+              TacticTitle: "TacticTitleXXXX",
+              Score: 10,
+              SpendUSD: 1,
+              Impr: 33.3,
+              Clicks: 3000,
+              MktImpactUSD: 232
+            },
+          ],
+          pageSize: 7,
+          group: {
+            field: "MethodCode", aggregates: [
+              { field: "AccountName", aggregate: "count" },
+              { field: "AccountNo", aggregate: "count" },
+              { field: "MethodCode", aggregate: "count" },
+              { field: "Category", aggregate: "count" },
+              { field: "Score", aggregate: "sum" }
+            ]
+          }
+        });
+        var columnDefinitions = [
+          {
+            field: "SelectCheckBox",
+            template: "<input type='checkbox' data-bind='checked:SelectCheckBox'/>",
+            headerTemplate: "<input type='checkbox' class='checkBox'/>"
           },
+          {
+            field: "AccountName",
+            title: "Account Name",
+          },
+          {
+            field: "AccountNo",
+            title: "Account NO.",
+          },
+          {
+            field: "MethodCode",
+            title: "Method Code",
+            aggregates: ["count"],
+            groupHeaderTemplate: "<button class='selectItemsInThisGroup'>Select</button> <p>SumPrice: #= aggregates.Score.sum  # numOfAccount: #= aggregates.AccountName.count #</p>"
+          },
+          {
+            field: "Category",
+            title: "Category",
+          },
+          {
+            field: "TacticTitle",
+            title: "Tactic Title",
+          },
+          {
+            field: "Score",
+            title: "Score",
+          },
+          {
+            title: "Est. Change",
+            columns: [
+              { field: "SpendUSD", title: "SpendUSD" },
+              { field: "Impr", title: "Impr." },
+              { field: "Clicks", title: "Clicks" },
+              { field: "MktImpactUSD", title: "Mkt. Impact USD" }
+            ]
+          }
+        ];
+
+        var grid = $("#grid").kendoGrid({
+          dataSource: dataSource,
           sortable: true,
           scrollable: false,
           pageable: true,
-          columns: [
-            {
-              field: "AccountName",
-              title: "Account Name",
-            },
-            {
-              field: "AccountNo",
-              title: "Account NO.",
-            },
-            {
-              field: "MethodCode",
-              title: "Method Code",
-              aggregates: ["count"],
-              groupHeaderTemplate: "<button class='selectItemsInThisGroup'>Select</button> <p>SumPrice: #= aggregates.Score.sum  # numOfAccount: #= aggregates.AccountName.count #</p>"
-            },
-            {
-              field: "Category",
-              title: "Category",
-            },
-            {
-              field: "TacticTitle",
-              title: "Tactic Title",
-            },
-            {
-              field: "Score",
-              title: "Score",
-            },
-            {
-              title: "Est. Change",
-              columns: [
-                { field: "SpendUSD", title: "SpendUSD" },
-                { field: "Impr", title: "Impr." },
-                { field: "Clicks", title: "Clicks" },
-                { field: "MktImpactUSD", title: "Mkt. Impact USD" }
-              ]
-            }
-          ],
-          dataBound: function () {
-            $(".selectItemsInThisGroup").on("click", function (e) {
-              var grid = $("#grid").data("kendoGrid");
-              var currentGroupRow = $(this).closest(".k-grouping-row");
-              grid.select(currentGroupRow.nextUntil(".k-grouping-row", ":not('.k-group-footer')"));
+          columns: columnDefinitions,
+          dataBound: onDataBound,
+          editable: "inline"
+        }).data("kendoGrid");
 
-            })
+        grid.table.on("click", ".checkbox", selectRow);
+        $("#showSelection").bind("click", function () {
+          var checked = [];
+          for (var i in checkedIds) {
+            if (checkedIds[i]) {
+              checked.push(i);
+            }
           }
+
+          alert(checked);
         });
 
-
       });
+
+      function selectRow() {
+        var checked = this.checked,
+          row = $(this).closest("tr"),
+          grid = $("#grid").data("kendoGrid"),
+          dataItem = grid.dataItem(row);
+
+        checkedIds[dataItem.id] = checked;
+        if (checked) {
+          //-select the row
+          row.addClass("k-state-selected");
+        } else {
+          //-remove selection
+          row.removeClass("k-state-selected");
+        }
+      }
+
+      var checkedIds = {};
+
+      function onDataBound(e) {
+        var view = this.dataSource.view();
+        for (var i = 0; i < view.length; i++) {
+          if (checkedIds[view[i].id]) {
+            this.tbody.find("tr[data-uid='" + view[i].uid + "']")
+              .addClass("k-state-selected")
+              .find(".checkbox")
+              .attr("checked", "checked");
+          }
+        }
+      }
+
     </script>
 </div>
 <body>
